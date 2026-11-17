@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Use `vite build` alone for production output; the Lovable TanStack configuration owns the output layout, so post-build scripts must not assume `.output/public` or delete `dist`.
+- Render the course-road student with RoadmapStudent's photo layers and the existing scroll-position controller; this preserves the uploaded likeness and works without WebGL.

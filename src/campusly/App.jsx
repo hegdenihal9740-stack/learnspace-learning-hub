@@ -66,7 +66,7 @@ import { supabase } from '@/integrations/supabase/client'
 import { sendPasswordReset } from './cloudAuth'
 import { RUNNER_SCROLL_IDLE_MS, shouldRunnerMove } from './roadmapRunnerMotion.js'
 
-const RoadmapRunner3D = lazy(() => import('./RoadmapRunner3D.jsx'))
+const RoadmapStudent = lazy(() => import('./RoadmapStudent.jsx'))
 const roadmapAmbientIcons = [
   { Icon: Cpu, top: 4, side: 'right', offset: 7, color: '#40dfff', size: 40 },
   { Icon: BrainCircuit, top: 10, side: 'left', offset: 7, color: '#a376ff', size: 36 },
@@ -1005,7 +1005,7 @@ function Courses({ data, setPage }) {
       const angle = Math.atan2(directionY, directionX)
       const mapRect = map.getBoundingClientRect()
 
-      runner.style.width = `${Math.max(56, Math.min(160, laneWidth * 2.2))}px`
+      runner.style.width = `${Math.max(96, Math.min(160, laneWidth * 2.2))}px`
       runner.style.left = `${trackRect.left - mapRect.left + position.x}px`
       runner.style.top = `${trackRect.top - mapRect.top + position.y}px`
       runner.style.setProperty('--roadmap-runner-angle', `${angle}rad`)
@@ -1320,7 +1320,7 @@ function Courses({ data, setPage }) {
       </ol>
       <div ref={roadmapRunnerRef} className="roadmap-runner" aria-hidden="true">
         <Suspense fallback={null}>
-          <RoadmapRunner3D running={runnerMoving} active={roadmapVisible && runnerMoving} />
+          <RoadmapStudent running={runnerMoving} />
               </Suspense>
               </div>
     </div>
