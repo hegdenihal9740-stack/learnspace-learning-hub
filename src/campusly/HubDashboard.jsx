@@ -430,6 +430,7 @@ export default function HubDashboard({ data, setPage, onNotificationClick, onOpe
         title="Recent Notifications"
         sub="The latest updates from your learning portal"
         right={unreadNotifications ? `${unreadNotifications} unread` : "All caught up"}
+        className="hub-notifications-card"
       >
         <div className="hub-notifications">
           {notifications.slice(0, 3).map((notification) => (

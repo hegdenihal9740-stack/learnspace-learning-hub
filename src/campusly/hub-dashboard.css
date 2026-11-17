@@ -204,3 +204,23 @@
 .hub-card .hub-card-head~*{color:inherit}
 .hub-card [class*="chip"],.hub-card [class*="pill"],.hub-card [class*="badge"],.hub-card .hub-card-head>span:last-child{color:#ffd9e6!important;border-color:#ff3d8166!important;background:#ff3d811f!important}
 .hub-card [class*="rhythm"],.hub-card [class*="legend"],.hub-card small{color:#b8c0e0!important}
+
+/* ===== Per-card themes: sunset notifications, emerald attendance ===== */
+.hub-notifications-card{background:linear-gradient(150deg,#3a1230 0%,#4a1626 55%,#5a2410 100%)!important;box-shadow:0 20px 40px -22px #7a1a4a,inset 0 1px 0 #ffffff1a}
+.hub-notifications-card::before{background:radial-gradient(circle,#ffb44355,transparent 70%)}
+.hub-notifications-card::after{background:radial-gradient(circle,#ff3d8144,transparent 70%)}
+.hub-notifications-card .hub-ico{background:linear-gradient(135deg,#ffb443,#ff5a3c);box-shadow:0 0 16px #ffb44380}
+.hub-notifications-card .hub-notification.unread{background:linear-gradient(90deg,#ffb44326,transparent)}
+.hub-notifications-card .hub-notification.unread .hub-notification-dot{background:#ffb443;box-shadow:0 0 8px #ffb443}
+.hub-notifications-card .hub-notifications-link{color:#ffc987}
+.hub-notifications-card:hover{box-shadow:0 26px 50px -20px #ffb44355,inset 0 1px 0 #ffffff26}
+.hub-notifications-card [class*="chip"],.hub-notifications-card [class*="pill"],.hub-notifications-card [class*="badge"],.hub-notifications-card .hub-card-head>span:last-child{color:#ffe6c2!important;border-color:#ffb44366!important;background:#ffb4431f!important}
+
+.hub-attendance-card{background:linear-gradient(150deg,#0d2b26 0%,#0f3a2e 55%,#123f2a 100%)!important;box-shadow:0 20px 40px -22px #0a5a3a,inset 0 1px 0 #ffffff1a}
+.hub-attendance-card::before{background:radial-gradient(circle,#2ee6a855,transparent 70%)}
+.hub-attendance-card::after{background:radial-gradient(circle,#2de2e644,transparent 70%)}
+.hub-attendance-card .hub-ico{background:linear-gradient(135deg,#2ee6a8,#1fbf8f);box-shadow:0 0 16px #2ee6a880}
+.hub-attendance-card .hub-attendance-line{stroke:#2ee6a8;filter:drop-shadow(0 0 6px #2ee6a8)}
+.hub-attendance-card .hub-attendance-link{color:#7df0c8}
+.hub-attendance-card:hover{box-shadow:0 26px 50px -20px #2ee6a866,inset 0 1px 0 #ffffff26;transform:translateY(-3px)}
+.hub-attendance-card [class*="chip"],.hub-attendance-card [class*="pill"],.hub-attendance-card [class*="badge"],.hub-attendance-card .hub-card-head>span:last-child{color:#c8f5e2!important;border-color:#2ee6a866!important;background:#2ee6a81f!important}
