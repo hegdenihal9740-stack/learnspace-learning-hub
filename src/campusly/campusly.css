@@ -4777,16 +4777,6 @@ body:has(.roadmap-page:not(.module-session-page)){
   .hub *,.hub *::after,.hub-hero::after{animation:none!important;transition:none!important}
 }
 
-/* ===== Course page: living 3D background + floating module emblems ===== */
-.roadmap-module-map{background:radial-gradient(120% 60% at 50% 0%,#1b2d6b 0%,#0d1638 45%,#070b1f 100%)!important}
-.roadmap-module-map::before{content:"";display:block!important;position:absolute;inset:-20%;z-index:-1;pointer-events:none;
-  background:radial-gradient(40% 30% at 20% 20%,#ff3d8155,transparent 70%),radial-gradient(35% 28% at 80% 45%,#2de2e650,transparent 70%),radial-gradient(40% 30% at 30% 80%,#ffb44340,transparent 70%);
-  filter:blur(30px);animation:roadmap-aurora 16s ease-in-out infinite alternate}
-.roadmap-module-map::after{content:"";display:block!important;position:absolute;left:-50%;right:-50%;bottom:0;height:100%;z-index:-1;pointer-events:none;
-  background-image:linear-gradient(#6fd8ff22 1px,transparent 1px),linear-gradient(90deg,#6fd8ff22 1px,transparent 1px);background-size:60px 60px;
-  transform:perspective(600px) rotateX(62deg);transform-origin:50% 100%;mask-image:linear-gradient(to top,#000 10%,transparent 85%);animation:roadmap-grid 6s linear infinite}
-@keyframes roadmap-aurora{0%{transform:translate(0,0) rotate(0)}50%{transform:translate(4%,-3%) rotate(8deg)}100%{transform:translate(-4%,3%) rotate(-6deg)}}
-@keyframes roadmap-grid{to{background-position:0 60px,0 0}}
 .roadmap-module-platform{perspective:700px}
 .roadmap-module-art{transform-style:preserve-3d;animation:module-emblem 6s ease-in-out infinite;animation-delay:var(--module-reveal-delay,0ms);
   filter:drop-shadow(0 14px 10px #000a) drop-shadow(0 0 14px color-mix(in srgb,var(--module-accent) 60%,transparent))}
@@ -4796,6 +4786,4 @@ body:has(.roadmap-page:not(.module-session-page)){
 .roadmap-module-platform-top{box-shadow:0 0 0 1px #ffffff22 inset,0 0 30px -6px var(--module-accent)}
 .journey-current .roadmap-module-platform-top{animation:module-ring 2.4s ease-out infinite}
 @keyframes module-ring{0%{box-shadow:0 0 0 0 var(--module-accent),0 0 30px -6px var(--module-accent)}100%{box-shadow:0 0 0 18px transparent,0 0 30px -6px var(--module-accent)}}
-@media (prefers-reduced-motion: reduce){.roadmap-module-map::before,.roadmap-module-map::after,.roadmap-module-art,.journey-current .roadmap-module-platform-top{animation:none!important}}
-.roadmap-module-map .roadmap-module-title{color:#f3f6ff!important;text-shadow:0 2px 12px #000c}
-.roadmap-module-map .journey-locked .roadmap-module-title{color:#aab3d6!important}
+@media (prefers-reduced-motion: reduce){.roadmap-module-art,.journey-current .roadmap-module-platform-top{animation:none!important}}
