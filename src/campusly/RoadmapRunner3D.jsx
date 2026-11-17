@@ -1,5 +1,5 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { createElement, useEffect, useRef, useState } from "react";
+import { Component, createElement, useEffect, useRef, useState } from "react";
 import { getRunningPose } from "./roadmapRunnerMotion.js";
 
 function SceneNode({ type, children, ...props }) {
@@ -306,7 +306,44 @@ function RunnerModel({ running }) {
   );
 }
 
-export default function RoadmapRunner3D({ running, active }) {
+function canUseWebGL() {
+  try {
+    const canvas = document.createElement("canvas");
+    return Boolean(canvas.getContext("webgl2") || canvas.getContext("webgl"));
+  } catch {
+    return false;
+  }
+}
+
+class SceneErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { failed: false };
+  }
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  componentDidCatch(error) {
+    console.warn("3D roadmap runner disabled:", error?.message);
+  }
+  render() {
+    return this.state.failed ? null : this.props.children;
+  }
+}
+
+// Browsers without WebGL (disabled GPU, old devices) skip the decorative runner instead of blanking the page.
+export default function RoadmapRunner3D(props) {
+  const [supported, setSupported] = useState(null);
+  useEffect(() => setSupported(canUseWebGL()), []);
+  if (!supported) return null;
+  return (
+    <SceneErrorBoundary>
+      <RunnerCanvas {...props} />
+    </SceneErrorBoundary>
+  );
+}
+
+function RunnerCanvas({ running, active }) {
   return (
     <Canvas
       aria-hidden="true"
