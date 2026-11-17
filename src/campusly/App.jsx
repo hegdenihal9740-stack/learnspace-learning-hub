@@ -1005,7 +1005,7 @@ function Courses({ data, setPage }) {
       const angle = Math.atan2(directionY, directionX)
       const mapRect = map.getBoundingClientRect()
 
-      runner.style.width = `${Math.max(14, Math.min(140, laneWidth * 1.82))}px`
+      runner.style.width = `${Math.max(56, Math.min(160, laneWidth * 2.2))}px`
       runner.style.left = `${trackRect.left - mapRect.left + position.x}px`
       runner.style.top = `${trackRect.top - mapRect.top + position.y}px`
       runner.style.setProperty('--roadmap-runner-angle', `${angle}rad`)
@@ -1293,6 +1293,7 @@ function Courses({ data, setPage }) {
         <path d={buildModuleTrackPath(mods.length)} fill="none" stroke="#45a9ff" strokeWidth="12" strokeLinecap="round" strokeLinejoin="round" opacity=".28" filter="url(#roadmap-track-glow)"/>
         <path d={buildModuleTrackPath(mods.length)} fill="none" stroke="#45a9ff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
         <path d={buildModuleTrackPath(mods.length)} fill="none" stroke="#c1e3ff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity=".8"/>
+        <path className="roadmap-road-flow" d={buildModuleTrackPath(mods.length)} fill="none" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" pathLength="1000"/>
       </svg>
       <svg className="roadmap-module-track roadmap-module-track-mobile" viewBox={`0 0 1000 ${mods.length * 340}`} preserveAspectRatio="none" aria-hidden="true">
         <defs>
@@ -1305,7 +1306,9 @@ function Courses({ data, setPage }) {
         <path className="roadmap-module-motion-path" d={buildModuleTrackPath(mods.length, 200, 800)} fill="none" stroke="#172a45" strokeWidth="66" strokeLinecap="round" strokeLinejoin="round"/>
         <path d={buildModuleTrackPath(mods.length, 200, 800)} fill="none" stroke="#45a9ff" strokeWidth="11" strokeLinecap="round" strokeLinejoin="round" opacity=".3" filter="url(#roadmap-mobile-track-glow)"/>
         <path d={buildModuleTrackPath(mods.length, 200, 800)} fill="none" stroke="#45a9ff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+        <path className="roadmap-road-flow" d={buildModuleTrackPath(mods.length, 200, 800)} fill="none" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" pathLength="1000"/>
       </svg>
+      <div className="roadmap-sparkles" aria-hidden="true">{Array.from({ length: 18 }, (_, i) => <span key={i} style={{ '--spark-x': `${(i * 53) % 100}%`, '--spark-y': `${(i * 37) % 100}%`, '--spark-delay': `${(i % 6) * -1.3}s` }}/>)}</div>
       <ol className="roadmap-module-list" aria-label="Course modules">
         {mods.slice().reverse().map((course, index) => (
               <ModuleJourneyItem

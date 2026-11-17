@@ -2747,7 +2747,7 @@ body:has(.roadmap-page:not(.module-session-page)){
   aspect-ratio:3/4;
   opacity:0;
   pointer-events:none;
-  transform:translate(-50%,-92%) rotate(var(--roadmap-runner-angle,0rad));
+  transform:translate(-50%,-88%);
   transform-origin:50% 92%;
   filter:drop-shadow(0 5px 5px #071a2c65);
   will-change:left,top,transform;
@@ -4715,4 +4715,32 @@ body:has(.roadmap-page:not(.module-session-page)){
 .roadmap-session-detail-modal button:focus-visible{
   outline:3px solid #a78bfa;
   outline-offset:3px;
+}
+
+/* Roadmap ambience: light pulses flowing along the road and drifting sparkles */
+.roadmap-road-flow{
+  stroke:#ffd27a;
+  stroke-dasharray:6 34;
+  opacity:.85;
+  filter:drop-shadow(0 0 4px #ffb84d);
+  animation:roadmap-road-flow 6s linear infinite;
+}
+@keyframes roadmap-road-flow{to{stroke-dashoffset:-1000}}
+.roadmap-sparkles{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.roadmap-sparkles span{
+  position:absolute;left:var(--spark-x);top:var(--spark-y);
+  width:6px;height:6px;border-radius:50%;
+  background:radial-gradient(circle,#fff 0,#7cd4ff 40%,transparent 70%);
+  opacity:0;
+  animation:roadmap-spark 7.8s ease-in-out var(--spark-delay) infinite;
+}
+@keyframes roadmap-spark{
+  0%{opacity:0;transform:translateY(20px) scale(.6)}
+  30%{opacity:.9}
+  70%{opacity:.6}
+  100%{opacity:0;transform:translateY(-60px) scale(1.2)}
+}
+.roadmap-runner{filter:drop-shadow(0 10px 14px #071a2c80)}
+@media (prefers-reduced-motion: reduce){
+  .roadmap-road-flow,.roadmap-sparkles span{animation:none}
 }
