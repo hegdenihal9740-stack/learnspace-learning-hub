@@ -180,3 +180,27 @@
   .hub-attendance-card .hub-attendance-plot,.hub-attendance-card .hub-attendance-detail,.hub-attendance-card .hub-attendance-axis{display:none}
   .hub-attendance-link{justify-content:flex-start;margin-top:12px;color:#9a390a}
 }
+
+/* ===== Neon glass theme for dashboard cards ===== */
+.hub>.hub-card,.hub-row>.hub-card{position:relative;overflow:hidden;background:linear-gradient(155deg,#16123a 0%,#0e1b3d 55%,#0a2a3d 100%);border:1px solid #ffffff1f;border-radius:24px;color:#eef2ff;box-shadow:0 20px 40px -22px #2a1a7a,inset 0 1px 0 #ffffff1a}
+.hub>.hub-card::before,.hub-row>.hub-card::before{content:"";position:absolute;width:220px;height:220px;right:-70px;top:-90px;border-radius:50%;background:radial-gradient(circle,#ff3d8155,transparent 70%);pointer-events:none;animation:hub-orb 8s ease-in-out infinite alternate}
+.hub>.hub-card::after,.hub-row>.hub-card::after{content:"";position:absolute;width:200px;height:200px;left:-80px;bottom:-100px;border-radius:50%;background:radial-gradient(circle,#2de2e644,transparent 70%);pointer-events:none;animation:hub-orb 9s ease-in-out -3s infinite alternate}
+@keyframes hub-orb{to{transform:translate(-30px,25px) scale(1.15)}}
+.hub-card>*{position:relative;z-index:1}
+.hub-card .hub-card-head h3{color:#fff}
+.hub-card .hub-card-head p,.hub-card .hub-attendance-summary>span,.hub-card .hub-attendance-detail,.hub-card .hub-attendance-axis,.hub-card .hub-notification-copy span,.hub-card .hub-notification time{color:#b8c0e0}
+.hub-card .hub-ico{background:linear-gradient(135deg,#ff3d81,#ffb443);color:#fff;box-shadow:0 0 16px #ff3d8180}
+.hub-card .hub-attendance-detail strong,.hub-card .hub-notification-copy strong{color:#fff}
+.hub-card .hub-attendance-line{stroke:#2de2e6;filter:drop-shadow(0 0 6px #2de2e6)}
+.hub-card .hub-attendance-gridline{stroke:#ffffff1a}
+.hub-card .hub-attendance-point{fill:#0e1b3d}
+.hub-card .hub-attendance-link{color:#ffb443}
+.hub-card .hub-notification{color:#eef2ff;border-bottom-color:#ffffff14;border-radius:14px;padding:11px 10px;transition:background .25s,transform .25s}
+.hub-card .hub-notification:hover{background:#ffffff0f;transform:translateX(4px)}
+.hub-card .hub-notification.unread{background:linear-gradient(90deg,#ff3d8122,transparent)}
+.hub-attendance-card:hover{box-shadow:0 26px 50px -20px #ff3d8166,inset 0 1px 0 #ffffff26;transform:translateY(-3px)}
+@media (prefers-reduced-motion: reduce){.hub-card::before,.hub-card::after{animation:none}}
+.hub>.hub-card,.hub-row>.hub-card{padding:18px!important}
+.hub-card .hub-card-head~*{color:inherit}
+.hub-card [class*="chip"],.hub-card [class*="pill"],.hub-card [class*="badge"],.hub-card .hub-card-head>span:last-child{color:#ffd9e6!important;border-color:#ff3d8166!important;background:#ff3d811f!important}
+.hub-card [class*="rhythm"],.hub-card [class*="legend"],.hub-card small{color:#b8c0e0!important}
