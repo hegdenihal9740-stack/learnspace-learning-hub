@@ -4744,3 +4744,35 @@ body:has(.roadmap-page:not(.module-session-page)){
 @media (prefers-reduced-motion: reduce){
   .roadmap-road-flow,.roadmap-sparkles span{animation:none}
 }
+
+/* ===== Dashboard motion ===== */
+@keyframes hub-rise{from{opacity:0;transform:translateY(22px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes hub-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes hub-shine{0%{transform:translateX(-120%) skewX(-20deg)}60%,100%{transform:translateX(220%) skewX(-20deg)}}
+@keyframes hub-kenburns{from{transform:scale(1)}to{transform:scale(1.07) translate(-1%,-1%)}}
+@keyframes hub-grad{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes hub-pulse{0%{box-shadow:0 0 0 0 #ff7aa880}100%{box-shadow:0 0 0 10px #ff7aa800}}
+.hub-top>*,.hub>*{animation:hub-rise .7s cubic-bezier(.2,.8,.2,1) both}
+.hub>*:nth-child(2){animation-delay:.12s}.hub>*:nth-child(3){animation-delay:.22s}.hub>*:nth-child(4){animation-delay:.32s}.hub>*:nth-child(5){animation-delay:.42s}
+.hub-top-side>*{animation:hub-rise .7s .15s cubic-bezier(.2,.8,.2,1) both}
+.hub-top-side>*:nth-child(2){animation-delay:.28s}
+.hub-hero{position:relative;overflow:hidden}
+.hub-hero>img{animation:hub-kenburns 14s ease-in-out infinite alternate}
+.hub-hero::after{content:"";position:absolute;inset:0;width:40%;pointer-events:none;background:linear-gradient(90deg,transparent,#ffffff40,transparent);animation:hub-shine 5.5s ease-in-out 1s infinite}
+.hub-hero-copy>*{animation:hub-rise .8s cubic-bezier(.2,.8,.2,1) both}
+.hub-hero-copy>*:nth-child(2){animation-delay:.15s}.hub-hero-copy>*:nth-child(3){animation-delay:.3s}.hub-hero-copy>*:nth-child(4){animation-delay:.45s}
+.hub-hero-copy h2 span:last-child{background:linear-gradient(90deg,#ffd76a,#ff7aa8,#6fd8ff,#ffd76a);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:hub-grad 6s ease infinite}
+.hub-quote{animation:hub-float 4.5s ease-in-out infinite}
+.hub-pill-btn{transition:transform .25s,box-shadow .25s}
+.hub-pill-btn:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 10px 24px -8px #0008}
+.hub-pill-btn svg{transition:transform .25s}.hub-pill-btn:hover svg{transform:translateX(4px)}
+.hub-schedule,.hub-class-test-card,.hub-notification,.hub-event{transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+.hub-schedule:hover,.hub-class-test-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px -18px #071a2c80}
+.hub-event:hover,.hub-notification:hover{transform:translateX(4px)}
+.hub-sched-list>*{animation:hub-rise .5s cubic-bezier(.2,.8,.2,1) both}
+.hub-sched-list>*:nth-child(2){animation-delay:.08s}.hub-sched-list>*:nth-child(3){animation-delay:.16s}.hub-sched-list>*:nth-child(4){animation-delay:.24s}
+.hub-notification.unread .hub-notification-dot{animation:hub-pulse 1.6s ease-out infinite;border-radius:50%}
+.hub-class-test-icon{animation:hub-float 3.5s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){
+  .hub *,.hub *::after,.hub-hero::after{animation:none!important;transition:none!important}
+}
