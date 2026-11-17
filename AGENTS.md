@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Use `vite build` alone for production output; the Lovable TanStack configuration owns the output layout, so post-build scripts must not assume `.output/public` or delete `dist`.

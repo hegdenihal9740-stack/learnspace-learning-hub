@@ -23,7 +23,7 @@ npm run dev
 
 ## Production build
 
-Run `npm run build` to generate the prerendered static site in `dist/` (including `dist/index.html`). The Cloudflare server build remains in `.output/`.
+Run `npm run build` to generate the production app with the Lovable TanStack configuration. It manages the client assets, prerendered pages, and Cloudflare server output; no additional static-file copying step is needed.
 
 ## Built with
 
