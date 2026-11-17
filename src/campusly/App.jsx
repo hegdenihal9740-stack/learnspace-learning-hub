@@ -260,7 +260,7 @@ export function Login({ onLogin, previewMode }) {
           ) : (
             <>
         <Button type="button" variant="outline" className="secondary-button login-submit h-auto mt-3" disabled={busy} onClick={() => { if (previewMode) onLogin({ ...DEMO_USER })
-                  else { setEmail(DEMO_USER.studentId)
+                  else { setIdentifier(DEMO_USER.studentId)
                     if (!localStorage.getItem(DEMO_PASSWORD_KEY)) setPassword(DEMO_USER.password)
                     setError('') } }}><GraduationCap size={17}/>{previewMode ? 'Open demo portal (no password)' : 'Fill demo registration number'}</Button>
         </>
