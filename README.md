@@ -21,6 +21,10 @@ npm i
 npm run dev
 ```
 
+## Production build
+
+Run `npm run build` to generate the prerendered static site in `dist/` (including `dist/index.html`). The Cloudflare server build remains in `.output/`.
+
 ## Built with
 
 - TanStack Start
