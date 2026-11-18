@@ -1,5 +1,7 @@
 # Roadmap
 
+- [x] Verify locally visible logos and front/rear student turns with upward and downward scrolling
+
 - [x] Add Feedback tab with course feedback, module shift requests and saved request history
 - [ ] Verify feedback submission using a real student account — blocked because there are no Cloud auth users yet
 

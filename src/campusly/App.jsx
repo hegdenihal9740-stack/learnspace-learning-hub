@@ -64,7 +64,7 @@ import { PortalNavigation, usePortalState, useResetNavigation, usePortalNavigati
 import { useCloudAuth } from '@/components/auth-provider'
 import { supabase } from '@/integrations/supabase/client'
 import { sendPasswordReset } from './cloudAuth'
-import { RUNNER_SCROLL_IDLE_MS, shouldRunnerMove } from './roadmapRunnerMotion.js'
+import { RUNNER_SCROLL_IDLE_MS, shouldRunnerMove, getScrollDirection, getTravelHeading } from './roadmapRunnerMotion.js'
 
 const RoadmapStudent = lazy(() => import('./RoadmapStudent.jsx'))
 const roadmapAmbientIcons = [
@@ -224,6 +224,7 @@ export function Login({ onLogin, previewMode }) {
     </div>
     <div className="login-main">
       <form className="login-form login-animate" onSubmit={submit}>
+        <img className="portal-logo portal-logo-login" src={feeReceiptLogo} alt="Skill AI"/>
         <div className="login-heading"><span className="eyebrow">STUDENT PORTAL</span><h2>{forgot ? 'Forgot password' : 'Welcome back'}</h2><p>{forgot ? 'Receive a secure password reset link by email.' : 'Enter your details to access your learning dashboard.'}</p>{previewMode && (
               <p className="login-terms" role="status">
                 Preview mode: sample data and changes stay on this device.
@@ -278,7 +279,7 @@ function Sidebar({ page, setPage, data, onLogout, mobileOpen, setMobileOpen }) {
     <>
     {mobileOpen && <button className="mobile-scrim" onClick={() => setMobileOpen(false)} aria-label="Close menu"/>}
     <aside className={cx('sidebar', mobileOpen && 'sidebar-open')}>
-      <div className="sidebar-brand"><button className="icon-button mobile-close" onClick={() => setMobileOpen(false)} aria-label="Close menu"><X size={18}/></button></div>
+      <div className="sidebar-brand"><img className="portal-logo" src={feeReceiptLogo} alt="Skill AI"/><button className="icon-button mobile-close" onClick={() => setMobileOpen(false)} aria-label="Close menu"><X size={18}/></button></div>
       <nav className="side-nav">{navGroups.map((group) => (
             <div className="nav-group" key={group.label}><div className="nav-group-label">{group.label}</div>{group.items.map((item) => {
         const Icon = item.icon
@@ -331,7 +332,7 @@ function ProfileMenu({ setPage, onLogout }) {
 function Topbar({ page, setPage, data, search, setSearch, onLogout }) {
   const unread = portalNotifications(data).filter((n) => !n.read).length
   return (
-    <header className="topbar"><div className="topbar-left"><div className="breadcrumb"><span>Workspace</span><ChevronRight size={14}/><strong>{titles[page]?.[0] || 'Dashboard'}</strong></div></div><div className="topbar-actions"><div className="global-search"><Search size={16}/><input type="search" placeholder="Search anything..." value={search} onChange={(e) => setSearch(e.target.value)} aria-label="Search portal"/><kbd>⌘ K</kbd></div><button className="icon-button notification-button" aria-label="Open notifications" onClick={() => setPage('notifications')}><Bell size={19}/>{unread > 0 && <i/>}</button><div className="topbar-divider"/><ProfileMenu setPage={setPage} onLogout={onLogout}/></div></header>
+    <header className="topbar"><div className="topbar-left"><img className="portal-logo portal-logo-topbar" src={feeReceiptLogo} alt="Skill AI"/><div className="breadcrumb"><span>Workspace</span><ChevronRight size={14}/><strong>{titles[page]?.[0] || 'Dashboard'}</strong></div></div><div className="topbar-actions"><div className="global-search"><Search size={16}/><input type="search" placeholder="Search anything..." value={search} onChange={(e) => setSearch(e.target.value)} aria-label="Search portal"/><kbd>⌘ K</kbd></div><button className="icon-button notification-button" aria-label="Open notifications" onClick={() => setPage('notifications')}><Bell size={19}/>{unread > 0 && <i/>}</button><div className="topbar-divider"/><ProfileMenu setPage={setPage} onLogout={onLogout}/></div></header>
   )
 }
 
@@ -767,6 +768,7 @@ function Courses({ data, setPage }) {
   const [openModule, setOpenModule] = useState(null)
   const [openSession, setOpenSession] = useState(null)
   const [runnerMoving, setRunnerMoving] = useState(false)
+  const [runnerDirection, setRunnerDirection] = useState(1)
   const [roadmapVisible, setRoadmapVisible] = useState(false)
   const roadmapMapRef = useRef(null)
   const roadmapRunnerRef = useRef(null)
@@ -912,6 +914,8 @@ function Courses({ data, setPage }) {
     let frame = 0
     let stopTimer = 0
     let lastScrollAt = Number.NEGATIVE_INFINITY
+    let previousY = window.scrollY
+    let direction = 1
 
     const measure = () => {
       const isMobile = window.matchMedia?.('(max-width: 640px)').matches
@@ -1002,15 +1006,16 @@ function Courses({ data, setPage }) {
       const normalX = -directionY / directionLength
       const normalY = directionX / directionLength
       const laneWidth = 66 * Math.hypot((trackRect.width / 1000) * normalX, (trackRect.height / viewBoxHeight) * normalY)
-      const angle = Math.atan2(directionY, directionX)
+      const angle = getTravelHeading(directionX, directionY, direction)
       const mapRect = map.getBoundingClientRect()
 
       runner.style.width = `${Math.max(96, Math.min(160, laneWidth * 2.2))}px`
       runner.style.left = `${trackRect.left - mapRect.left + position.x}px`
       runner.style.top = `${trackRect.top - mapRect.top + position.y}px`
       runner.style.setProperty('--roadmap-runner-angle', `${angle}rad`)
+      runner.style.setProperty('--student-lean', `${Math.max(-7, Math.min(7, directionX / directionLength * direction * 7))}deg`)
       runner.style.opacity = '1'
-      const shouldRun = shouldRunnerMove(progress, lastScrollAt, performance.now())
+      const shouldRun = !prefersReducedMotion && shouldRunnerMove(progress, lastScrollAt, performance.now(), direction)
       setRunnerMoving((isMoving) => (isMoving === shouldRun ? isMoving : shouldRun))
     }
 
@@ -1026,6 +1031,9 @@ function Courses({ data, setPage }) {
       scheduleUpdate()
     }
     const handleScroll = () => {
+      direction = getScrollDirection(previousY, window.scrollY, direction)
+      previousY = window.scrollY
+      setRunnerDirection(direction)
       lastScrollAt = performance.now()
       if (stopTimer) window.clearTimeout(stopTimer)
       stopTimer = window.setTimeout(() => {
@@ -1320,7 +1328,7 @@ function Courses({ data, setPage }) {
       </ol>
       <div ref={roadmapRunnerRef} className="roadmap-runner" aria-hidden="true">
         <Suspense fallback={null}>
-          <RoadmapStudent running={runnerMoving} />
+          <RoadmapStudent running={runnerMoving} direction={runnerDirection} />
               </Suspense>
               </div>
     </div>

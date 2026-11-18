@@ -1,3 +1,4 @@
+import portalLogo from '@/assets/skillai-fee-logo.png'
 import { useEffect, useRef, useState } from 'react'
 import { CalendarDays, Camera, Check, GraduationCap, LockKeyhole, Mail, MapPin, Phone, Save, Trash2, UserRound } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -221,7 +222,7 @@ export default function StudentProfile({ updateData }) {
   const initials = (profile.name || '').split(' ').map(part => part[0]).slice(0, 2).join('').toUpperCase()
   return <div className="student-profile-page">
     <section className="student-profile-summary" aria-label="Student profile">
-      <div className="student-profile-cover" aria-hidden="true"></div>
+      <div className="student-profile-cover"><img className="portal-logo portal-logo-profile" src={portalLogo} alt="Skill AI"/></div>
       <div className="student-profile-avatar" aria-label={profile.name}>{profile.photo ? <img src={profile.photo} alt={`${profile.name || 'Student'} profile photo`}/> : initials || <UserRound size={36}/>}</div>
       <div className="student-profile-photo-actions">
         <input ref={photoInput} type="file" accept="image/jpeg,image/png,image/webp" aria-label="Student photo" hidden onChange={uploadPhoto}/>

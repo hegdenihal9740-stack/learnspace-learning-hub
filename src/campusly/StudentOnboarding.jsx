@@ -1,3 +1,4 @@
+import portalLogo from '@/assets/skillai-fee-logo.png';
 import { useState } from "react";
 import { Camera, Check, LockKeyhole, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -160,6 +161,7 @@ export default function StudentOnboarding({ step, onPasswordChanged, onProfileCo
     <main className="student-onboarding-page">
       <section className="student-onboarding-card">
         <div className="student-onboarding-brand">
+          <img className="portal-logo" src={portalLogo} alt="Skill AI"/>
           <span>
             <ShieldCheck size={18} />
           </span>{" "}

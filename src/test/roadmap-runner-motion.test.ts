@@ -3,6 +3,8 @@ import {
   getRunningPose,
   RUNNER_CYCLE_SECONDS,
   shouldRunnerMove,
+  getScrollDirection,
+  getTravelHeading,
 } from "../campusly/roadmapRunnerMotion.js";
 
 describe("roadmap runner motion", () => {
@@ -17,6 +19,19 @@ describe("roadmap runner motion", () => {
 
   it("keeps all animated pose values finite", () => {
     expect(Object.values(getRunningPose(2.37)).every(Number.isFinite)).toBe(true);
+  });
+
+  it("faces forward scrolling down and reverses scrolling up", () => {
+    expect(getScrollDirection(100, 200)).toBe(1);
+    expect(getScrollDirection(200, 100)).toBe(-1);
+    expect(getScrollDirection(100, 100, -1)).toBe(-1);
+    expect(getTravelHeading(0, 1, 1)).toBeCloseTo(Math.PI / 2);
+    expect(getTravelHeading(0, 1, -1)).toBeCloseTo(-Math.PI / 2);
+  });
+
+  it("can walk back from the checkpoint but stops at the start", () => {
+    expect(shouldRunnerMove(1, 1000, 1010, -1)).toBe(true);
+    expect(shouldRunnerMove(0, 1000, 1010, -1)).toBe(false);
   });
 
   it("moves only while the roadmap is actively scrolling before its checkpoint", () => {

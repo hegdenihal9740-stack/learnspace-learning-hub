@@ -1,8 +1,16 @@
 export const RUNNER_CYCLE_SECONDS = 0.56;
 export const RUNNER_SCROLL_IDLE_MS = 140;
 
-export function shouldRunnerMove(progress, lastScrollAt, now) {
-  return progress < 1 && now - lastScrollAt < RUNNER_SCROLL_IDLE_MS;
+export function shouldRunnerMove(progress, lastScrollAt, now, direction = 1) {
+  return (direction > 0 ? progress < 1 : progress > 0) && now - lastScrollAt < RUNNER_SCROLL_IDLE_MS;
+}
+
+export function getScrollDirection(previousY, nextY, previousDirection = 1) {
+  return nextY === previousY ? previousDirection : nextY > previousY ? 1 : -1;
+}
+
+export function getTravelHeading(x, y, direction) {
+  return Math.atan2(y * direction, x * direction);
 }
 
 export function getRunningPose(time) {
